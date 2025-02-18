@@ -1,5 +1,5 @@
-![logo](https://github.com/user-attachments/assets/a850198e-0b1f-450b-85b4-c2b7aa1eb80d)
 # **TodoCalendarApp**
+![logo](https://github.com/user-attachments/assets/a850198e-0b1f-450b-85b4-c2b7aa1eb80d)
 
 ![React](https://img.shields.io/badge/React-19.0-blue?logo=react)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-green?logo=springboot)
@@ -18,8 +18,8 @@
 - **사용자 경험(UX)을 고려한 깔끔한 디자인 적용**
 
 ---
-
 ![favicon](https://github.com/user-attachments/assets/31ea147f-5c40-4dc2-9760-af5ea338871c)
+
 ## **🚀 사용 기술 (Tech Stack)**
 
 ### **📌 Frontend**
@@ -37,8 +37,6 @@
 - **Swagger** – API 문서 자동화
 
 ---
-
-## **🔧 설치 및 실행 방법 (Build & Run)**
 
 ### **✅ 프론트엔드 실행**
 
