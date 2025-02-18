@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+
+body {
+  min-width: 380px;
+}
+
+/* react-calendar */
+.react-calendar {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.react-calendar__navigation {
+  background: #000;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px;
+}
+.react-calendar__navigation button {
+  border-radius: 2px;
+}
+
+.react-calendar__tile--now {
+  background: #fee685 !important;
+  border-radius: 4px;
+}
+
+.react-calendar__tile--active {
+  background: #1d4ed8 !important; /* Tailwind blue-700 */
+  color: white !important;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.react-calendar__tile:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* ant-Design Calendar */
+
+/* 연도 끄기 */
+.ant-radio-button-wrapper.css-dev-only-do-not-override-1yacf91 {
+  display: none;
+}
