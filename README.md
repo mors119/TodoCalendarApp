@@ -11,16 +11,16 @@
 
 ## 사용 기술
 ![download](https://github.com/user-attachments/assets/791ad434-b6b5-402d-8874-209481dfbfce)
+- Frontend: React.js, Ant Design, zustand, typeScript
 ![download-1](https://github.com/user-attachments/assets/4c0634b3-2e6b-42ff-85e0-60ae0fdd175a)
 ![download-2](https://github.com/user-attachments/assets/f3acf96b-c71f-4030-bd0a-643eef3b4a03)
-- Frontend: React.js, Ant Design, zustand, typeScript
 - Backend: Spring Boot, JPA, MySQL
 - API 명세: Swagger
 
 ## 🔧 설치 및 실행 방법
 ```sh
-git clone https://github.com/사용자명/저장소명.git
-cd 저장소명
+git clone https://github.com/mors119/TodoCalendarApp.git
+cd TodoCalendarApp
 npm install  # 또는 yarn install
 npm start
 ```
@@ -41,10 +41,6 @@ npm start
 ## 4️⃣ 추가 기능 설명
 - 기본 기능 이외에 추가한 기능 설명
 
-## 5️⃣ 백엔드 연동 여부
-- 백엔드 API와 연동했는지 여부 및 API 사용 방식
-
-## 6️⃣ 기타 사항
 - 프로젝트를 진행하며 고려한 사항 및 개선점
 
 ## **백엔드**
@@ -73,8 +69,4 @@ npm start
 ## 7️⃣ 데이터베이스 스키마
 - MySQL 테이블 구조 및 관계 설명
 
-## 8️⃣ 프론트엔드 연동 여부
-- 프론트엔드와 연동 여부 및 사용 방법
-
-## 9️⃣ 기타 사항
 - 프로젝트 진행 중 고려한 사항 및 개선점
