@@ -1,11 +1,10 @@
+![logo](https://github.com/user-attachments/assets/a850198e-0b1f-450b-85b4-c2b7aa1eb80d)
 # **TodoCalendarApp**
-![favicon](https://github.com/user-attachments/assets/31ea147f-5c40-4dc2-9760-af5ea338871c)
 
 ![React](https://img.shields.io/badge/React-19.0-blue?logo=react)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-green?logo=springboot)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql)
 
-![logo](https://github.com/user-attachments/assets/a850198e-0b1f-450b-85b4-c2b7aa1eb80d)
 ## 📝 프로젝트 개요
 
 
@@ -20,6 +19,7 @@
 
 ---
 
+![favicon](https://github.com/user-attachments/assets/31ea147f-5c40-4dc2-9760-af5ea338871c)
 ## **🚀 사용 기술 (Tech Stack)**
 
 ### **📌 Frontend**
