@@ -6,6 +6,7 @@ import { usersTodos } from '../../api/todoApi';
 import { useEffect, useState } from 'react';
 import { RedoOutlined } from '@ant-design/icons';
 import useMemberStore from '../../stores/memberStore';
+import useTodoStore from '../../stores/todoStore';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece] | null;
@@ -13,22 +14,21 @@ type Value = ValuePiece | [ValuePiece, ValuePiece] | null;
 export default function ReactCal() {
   const { selectedDate, setSelectedDate } = useCalendarStore();
   const [events, setEvents] = useState<EventType[]>([]);
-  const [refresh, setRefresh] = useState<number>(0);
   const { member } = useMemberStore();
+  const { refreshState } = useTodoStore();
 
   useEffect(() => {
     const getTodos = async () => {
       try {
         const data = await usersTodos(member!);
         const filteredData = data.filter((todo: any) => todo.complete !== 1);
-        console.log(data);
         setEvents(filteredData);
       } catch {
         console.error('Todo 로딩 오류');
       }
     };
     getTodos();
-  }, [refresh, member]);
+  }, [member, refreshState]);
 
   const getEventCount = (date: Date) => {
     return events.filter(
@@ -49,7 +49,7 @@ export default function ReactCal() {
     <div className="border bg-amber-50 p-4 rounded-xl border-neutral-200 shadow text-center flex-col justify-items-center lg:w-[400px]">
       <h2 className="text-lg font-bold text-center mb-4 flex-col flex">
         <span>Calendar</span>
-        <span className="text-xs text-neutral-400">진행 중인 일정만 표시</span>
+        <span className="text-xs text-rose-400">"진행 중"인 일정만 표시</span>
       </h2>
       <Calendar
         onChange={handleDateChange}
@@ -63,12 +63,14 @@ export default function ReactCal() {
       />
       <div
         className="flex mt-5 group justify-center items-center cursor-pointer p-2 hover:bg-amber-300/50 rounded-lg duration-200"
-        onClick={() => setRefresh((prev) => prev + 1)}>
+        onClick={() => {
+          setSelectedDate(null);
+        }}>
         <div className="group-hover:rotate-360 duration-500">
           <RedoOutlined />
         </div>
         <span className="pl-3 text-neutral-400 group-hover:text-neutral-600">
-          적용하기
+          접기
         </span>
       </div>
     </div>

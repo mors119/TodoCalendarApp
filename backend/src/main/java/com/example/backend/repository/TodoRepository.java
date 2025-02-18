@@ -16,7 +16,9 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
     @Query("SELECT new com.example.backend.model.CalendarResponse(t.id, t.title,t.complete, t.starts, t.ends) FROM Todo t WHERE t.userId = :userId")
     List<CalendarResponse> getCalendarData(@Param("userId") String userId);
 
-    Page<Todo> findAllByUserId(@Param("userId") String userId, Pageable pageable);
+    Page<Todo> findAllByUserId(String userId, Pageable pageable);
+    Page<Todo> findByUserIdAndPriority(String userId, String priority, Pageable pageable);
+    Page<Todo> findByUserIdAndComplete(String userId, int complete, Pageable pageable);
 
     @Query("SELECT t FROM Todo t WHERE t.userId = :userId AND DATE(t.starts) <= :date AND DATE(t.ends) >= :date ORDER BY t.complete ASC, t.priority DESC, t.starts ASC")
     List<Todo> findTodosByDate(@Param("userId") String userId, @Param("date") LocalDate date);

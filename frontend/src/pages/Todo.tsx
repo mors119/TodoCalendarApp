@@ -7,57 +7,82 @@ import EditTodo from '../components/todo/EditTodo';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import TodoForm from '../components/home/TodoForm';
 import { SortType } from '../utils/todo';
+import usePaginationStore from '../stores/paginationStore';
 
 export default function Todo() {
+  const [query, setQuery] = useState<string>(SortType.ALL);
   const [sort, setSort] = useState<string>(SortType.ALL);
   const { editTodo, resetEditTodo } = useTodoStore();
   const [edit, setEdit] = useState<todoType | null>(null);
   const [addBtn, setAddBtn] = useState(false);
+  const [depth, setDepth] = useState<string>('');
+  const { setCurrentPage } = usePaginationStore();
 
   useEffect(() => {
     setEdit(editTodo);
     setAddBtn(false);
   }, [editTodo]);
 
+  const handleQuery = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const name = (e.target as HTMLButtonElement).name;
+    if (
+      name === 'closest' ||
+      name === 'hardest' ||
+      name === 'inProgress' ||
+      name === 'all'
+    ) {
+      setSort(name);
+    } else {
+      setDepth(name);
+    }
+    setCurrentPage(1);
+    setQuery(name);
+  };
+
   return (
     <div className="max-w-3xl mx-auto sm:p-4 relative overflow-hidden min-h-[700px]">
       <div>
-        <div className="h-10 mb-4 flex justify-between items-center text-center text-neutral-500">
+        {/* Sort */}
+        <div
+          className={clsx(
+            'h-10 flex justify-between items-center text-center text-neutral-500 mb-2',
+            sort === 'hardest' || sort === 'inProgress' ? '' : 'mb-4',
+          )}>
           <button
             name="closest"
-            onClick={(e) => setSort((e.target as HTMLButtonElement).name)}
+            onClick={handleQuery}
             className={clsx(
               'w-1/4 border border-neutral-300 flex justify-center items-center h-full rounded-l-lg duration-200 cursor-pointer bg-amber-200/20',
               sort === SortType.CLOSEST && 'bg-amber-300/30 border-none',
             )}>
-            최신 순
+            Latest
           </button>
           <button
             name="hardest"
-            onClick={(e) => setSort((e.target as HTMLButtonElement).name)}
+            onClick={handleQuery}
             className={clsx(
               'w-1/4 border border-neutral-300 flex justify-center items-center h-full duration-200 cursor-pointer bg-amber-200/20',
               sort === SortType.HARDEST && 'bg-amber-300/30 border-none',
             )}>
-            난이도 별
+            Level
           </button>
           <button
             name="inProgress"
-            onClick={(e) => setSort((e.target as HTMLButtonElement).name)}
+            onClick={handleQuery}
             className={clsx(
               'w-1/4 border border-neutral-300 flex justify-center items-center h-full duration-200 cursor-pointer bg-amber-200/20',
               sort === SortType.IN_PROGRESS && 'bg-amber-300/30 border-none',
             )}>
-            진행 중
+            Progress
           </button>
           <button
             name="all"
-            onClick={(e) => setSort((e.target as HTMLButtonElement).name)}
+            onClick={handleQuery}
             className={clsx(
               'w-1/4 border border-neutral-300 flex justify-center items-center h-full rounded-r-lg duration-200 cursor-pointer bg-amber-200/20',
               sort === SortType.ALL && 'bg-amber-300/30 border-none',
             )}>
-            모든
+            ALL
           </button>
           <div className="w-1/7 justify-end items-center flex">
             <button
@@ -70,10 +95,71 @@ export default function Todo() {
             </button>
           </div>
         </div>
+        {/* Depth */}
+        {sort === 'hardest' && (
+          <div
+            className={clsx(
+              'w-full mb-4 h-0 flex justify-start duration-300',
+              sort === 'hardest' && 'h-8',
+            )}>
+            <button
+              name="HIGH"
+              onClick={handleQuery}
+              className={clsx(
+                'w-1/4 border border-neutral-300 flex justify-center items-center h-full rounded-l-lg duration-200 cursor-pointer bg-amber-200/20',
+                depth === 'HIGH' && 'bg-amber-300/30 border-none',
+              )}>
+              high
+            </button>
+            <button
+              name="MEDIUM"
+              onClick={handleQuery}
+              className={clsx(
+                'w-1/4 border border-neutral-300 flex justify-center items-center h-full duration-200 cursor-pointer bg-amber-200/20',
+                depth === 'MEDIUM' && 'bg-amber-300/30 border-none',
+              )}>
+              medium
+            </button>
+            <button
+              name="LOW"
+              onClick={handleQuery}
+              className={clsx(
+                'w-1/4 border border-neutral-300 flex justify-center items-center h-full rounded-r-lg duration-200 cursor-pointer bg-amber-200/20',
+                depth === 'LOW' && 'bg-amber-300/30 border-none',
+              )}>
+              low
+            </button>
+          </div>
+        )}
+        {sort === 'inProgress' && (
+          <div
+            className={clsx(
+              'w-full mb-4 h-0 flex justify-start duration-300',
+              sort === 'inProgress' && 'h-8',
+            )}>
+            <button
+              name="RUNNING"
+              onClick={handleQuery}
+              className={clsx(
+                'w-1/4 border border-neutral-300 flex justify-center items-center h-full rounded-l-lg duration-200 cursor-pointer bg-amber-200/20',
+                depth === 'RUNNING' && 'bg-amber-300/30 border-none',
+              )}>
+              running
+            </button>
+            <button
+              name="COMPLETE"
+              onClick={handleQuery}
+              className={clsx(
+                'w-1/4 border border-neutral-300 flex justify-center rounded-r-lg items-center h-full duration-200 cursor-pointer bg-amber-200/20',
+                depth === 'COMPLETE' && 'bg-amber-300/30 border-none',
+              )}>
+              completed
+            </button>
+          </div>
+        )}
         {/* sort 설정 하기 */}
-        <TodoList sort={sort} add={addBtn} />
+        <TodoList query={query} add={addBtn} />
       </div>
-
       <div
         className={clsx(
           'top-0 left-0 bg-neutral-200/20 w-full h-full absolute duration-200 z-50 sm:p-4 justify-center flex items-center',

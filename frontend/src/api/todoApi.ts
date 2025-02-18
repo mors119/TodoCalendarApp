@@ -52,7 +52,7 @@ export const changeComplete = async (id: number) => {
   }
 };
 
-// pagination 없이 전체 todo (id, title, starts, ends만) 가져오기
+// pagination 없이 전체 todo (id, title, starts, ends, complete만) 가져오기
 export const usersTodos = async (id: string) => {
   try {
     const response = await todos.get(`/calendar?userId=${id}`);
@@ -91,13 +91,10 @@ export const searchTodos = async (
   size?: number,
 ) => {
   try {
-    console.log(keyword);
     const response = await todos.get(
       `/search?userId=${id}&keyword=${keyword}` +
         (size ? `&page=${currentPage}&size=${size}` : ''),
     );
-    console.log(response.data);
-
     return response.data;
   } catch (error) {
     console.error('API 호출 오류:', error);

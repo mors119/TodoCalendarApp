@@ -8,14 +8,17 @@ import { searchTodos, deleteTodo } from '../api/todoApi';
 import { todoType } from '../types/todo';
 import { formatDate } from '../utils/date';
 import { PriorityCharToString } from '../utils/todo';
+import { useLocation } from 'react-router';
 
 export default function Result() {
-  const { searchKeyword, setEditTodo } = useTodoStore();
+  const { searchKeyword, setEditTodo, refreshState, setRefreshState } =
+    useTodoStore();
   const { member } = useMemberStore();
   const { currentPage, setTotalPages } = usePaginationStore();
   const [todos, setTodos] = useState<todoType[]>([]);
-  const [refresh, setRefresh] = useState(0);
+  const location = useLocation();
 
+  const prevUrl: string = location.state?.from;
   useEffect(() => {
     const getSearchResult = async () => {
       if (!searchKeyword) return; // 검색어 없으면 요청하지 않음
@@ -26,7 +29,6 @@ export default function Result() {
           currentPage - 1,
           3,
         );
-        console.log(res);
         setTodos(res.content);
         setTotalPages(res.totalPages);
       } catch (error) {
@@ -34,7 +36,7 @@ export default function Result() {
       }
     };
     getSearchResult();
-  }, [searchKeyword, member, currentPage, refresh]);
+  }, [refreshState, member, currentPage]);
 
   const handleComplete = async (todo: todoType) => {
     console.log(`완료 상태 변경: ${todo.id}`);
@@ -42,9 +44,11 @@ export default function Result() {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">
-        🔍 검색 결과: "{searchKeyword}"
-      </h2>
+      {prevUrl !== '/calendar' && (
+        <h2 className="text-xl font-bold mb-4">
+          🔍 검색 결과: "{searchKeyword}"
+        </h2>
+      )}
       <List
         grid={{ gutter: 16, column: 1 }}
         dataSource={todos}
@@ -104,7 +108,7 @@ export default function Result() {
                         onOk: async () => {
                           await deleteTodo(todo.id);
                           message.success('데이터가 삭제되었습니다.');
-                          setRefresh((prev) => prev + 1);
+                          setRefreshState(refreshState);
                         },
                       });
                     }}>

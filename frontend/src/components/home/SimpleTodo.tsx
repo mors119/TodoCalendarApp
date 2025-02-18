@@ -16,6 +16,7 @@ import useMemberStore from '../../stores/memberStore';
 import { DownloadOutlined } from '@ant-design/icons';
 import { downloadTxt } from '../../utils/download';
 import { Modal, message } from 'antd';
+import { useLocation, useNavigate } from 'react-router';
 
 interface SimpleTodoProps {
   dateState?: string;
@@ -23,11 +24,20 @@ interface SimpleTodoProps {
 }
 
 const SimpleTodo = ({ dateState, addBtn }: SimpleTodoProps) => {
-  const { editTodo, resetEditTodo, setEditTodo } = useTodoStore();
+  const {
+    editTodo,
+    resetEditTodo,
+    setEditTodo,
+    setSearchKeyword,
+    refreshState,
+    setRefreshState,
+  } = useTodoStore();
+  const navigate = useNavigate();
   const { selectedDate } = useCalendarStore();
   const [todos, setTodos] = useState<todoType[]>([]);
   const [refresh, setRefresh] = useState<number>(0);
   const { member } = useMemberStore();
+  const location = useLocation();
 
   // 할 일 목록 불러오기
   useEffect(() => {
@@ -42,7 +52,7 @@ const SimpleTodo = ({ dateState, addBtn }: SimpleTodoProps) => {
         setTodos([]);
       }
     };
-
+    setRefreshState(refreshState);
     fetchTodos();
   }, [selectedDate, dateState, refresh, addBtn]);
 
@@ -56,6 +66,7 @@ const SimpleTodo = ({ dateState, addBtn }: SimpleTodoProps) => {
           : todo,
       ),
     );
+    setRefresh((prev) => prev + 1);
   };
 
   return (
@@ -81,7 +92,14 @@ const SimpleTodo = ({ dateState, addBtn }: SimpleTodoProps) => {
                   <div
                     className="text-lg font-semibold cursor-pointer hover:underline"
                     onClick={() => {
-                      setEditTodo(todo);
+                      if (location.pathname !== '/calendar') {
+                        setEditTodo(todo);
+                      } else {
+                        setSearchKeyword(todo.title);
+                        navigate('/result', {
+                          state: { from: location.pathname },
+                        });
+                      }
                     }}>
                     {todo.title}
                   </div>
@@ -107,21 +125,23 @@ const SimpleTodo = ({ dateState, addBtn }: SimpleTodoProps) => {
                   <div className="text-sm text-neutral-400">
                     {formatDate(todo.starts)} ~ {formatDate(todo.ends)}
                   </div>
-                  <Tag
-                    className="cursor-pointer"
-                    onClick={async () => {
-                      Modal.confirm({
-                        title: '삭제하면 복구되지 않습니다.',
-                        content: '데이터를 삭제하시겠습니까?',
-                        onOk: async () => {
-                          await deleteTodo(todo.id);
-                          message.success('데이터가 삭제되었습니다.');
-                          setRefresh((prev) => prev + 1);
-                        },
-                      });
-                    }}>
-                    삭제하기
-                  </Tag>
+                  {location.pathname !== '/calendar' && (
+                    <Tag
+                      className="cursor-pointer"
+                      onClick={async () => {
+                        Modal.confirm({
+                          title: '삭제하면 복구되지 않습니다.',
+                          content: '데이터를 삭제하시겠습니까?',
+                          onOk: async () => {
+                            await deleteTodo(todo.id);
+                            message.success('데이터가 삭제되었습니다.');
+                            setRefresh((prev) => prev + 1);
+                          },
+                        });
+                      }}>
+                      삭제하기
+                    </Tag>
+                  )}
                 </div>
               </div>
             </>

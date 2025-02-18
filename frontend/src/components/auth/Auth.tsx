@@ -28,10 +28,10 @@ export default function Auth() {
         if (count === 0) {
           Modal.confirm({
             title: 'TODO가 없습니다.',
-            content: '더미 데이터를 추가하시겠습니까?',
+            content: '이전 데이터를 추가하시겠습니까?',
             onOk: async () => {
               await executeQuery(user.id);
-              message.success('더미 데이터가 추가되었습니다.');
+              message.success('데이터가 추가되었습니다.');
               localStorage.setItem('checkedTodos', 'true'); // 더미 추가 여부 저장
             },
           });

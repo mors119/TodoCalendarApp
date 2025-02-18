@@ -8,6 +8,7 @@ const Todo = lazy(() => import('../pages/Todo'));
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Result = lazy(() => import('../pages/Result'));
 const NotFound = lazy(() => import('../pages/NotFound'));
+const CompleteChart = lazy(() => import('../pages/CompleteChart'));
 
 export default function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<ProtectedRoute />}>
+          <Route path="/chart" element={<CompleteChart />} />
           <Route path="/todo" element={<Todo />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/result" element={<Result />} />

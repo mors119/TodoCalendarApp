@@ -42,7 +42,7 @@ const App: React.FC = () => {
       }
     };
     getTodos();
-  }, []);
+  }, [selectedDate]);
 
   // 날짜 클릭 시 선택한 날짜 업데이트
   const handleDateSelect = (value: Dayjs) => {

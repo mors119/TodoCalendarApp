@@ -11,10 +11,10 @@ import useTodoStore from '../../stores/todoStore';
 import useMemberStore from '../../stores/memberStore';
 
 export default function TodoList({
-  sort,
+  query,
   add,
 }: {
-  sort: string;
+  query: string;
   add: boolean;
 }) {
   const { currentPage, setTotalPages } = usePaginationStore();
@@ -27,7 +27,7 @@ export default function TodoList({
   useEffect(() => {
     const getTodos = async () => {
       try {
-        const data = await fetchTodos(member!, currentPage - 1, sort);
+        const data = await fetchTodos(member!, currentPage - 1, query);
         setTodos(data.content);
         setTotalPages(data.totalPages);
       } catch {
@@ -35,7 +35,7 @@ export default function TodoList({
       }
     };
     getTodos();
-  }, [currentPage, refresh, sort, !add]);
+  }, [currentPage, refresh, query, !add]);
 
   // 수정 시 목록 갱신
   useEffect(() => {

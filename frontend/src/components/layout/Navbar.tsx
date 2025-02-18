@@ -4,7 +4,7 @@ import useMemberStore from '../../stores/memberStore';
 import { SearchOutlined, MenuOutlined } from '@ant-design/icons';
 import useSidebarStore from '../../stores/sidebarStore';
 import Auth from '../auth/Auth';
-import SearchView from '../ui/serchbar';
+import SearchView from '../ui/searchbar';
 import { useState, useEffect } from 'react';
 import { todoType } from '../../types/todo';
 import { searchTodos } from '../../api/todoApi';
@@ -13,7 +13,7 @@ import useTodoStore from '../../stores/todoStore';
 const Navbar = () => {
   const { toggleSidebar } = useSidebarStore();
   const { member } = useMemberStore();
-  const { setSearchKeyword } = useTodoStore();
+  const { setSearchKeyword, setRefreshState, refreshState } = useTodoStore();
 
   const [keyword, setKeyword] = useState<string>('');
   const [searchData, setSearchData] = useState<todoType[]>([]);
@@ -36,7 +36,6 @@ const Navbar = () => {
     const getSearch = async () => {
       if (!debouncedKeyword.trim()) return;
       try {
-        console.log(debouncedKeyword);
         const res = await searchTodos(member!, debouncedKeyword);
         console.log(res);
         setSearchData(res.content);
@@ -76,12 +75,13 @@ const Navbar = () => {
           onChange={handleChange}
           value={keyword}
           type="text"
-          placeholder="제목, 내용, 카테고리 검색"
+          placeholder="제목, 설명, 카테고리 검색"
           className="w-full border border-neutral-300 focus:border-amber-300 rounded-l-full focus:outline-none px-6 duration-200 text-2xl placeholder:text-neutral-400"
         />
         <button
           onClick={() => {
             navigate('/result');
+            setRefreshState(refreshState);
           }}
           className="border w-14 flex cursor-pointer items-center justify-center rounded-r-full pr-2 bg-neutral-200 border-l-0 border-neutral-300 
       hover:bg-amber-300/30 hover:border-amber-300 

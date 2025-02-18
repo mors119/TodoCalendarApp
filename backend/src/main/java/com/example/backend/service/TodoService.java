@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,13 +32,23 @@ public class TodoService {
 
     // todo 전체 조회 (pagination, sort 적용)
     // ISSUE: Sort.by(Sort.Direction.ASC, "priority");가 알파벳 순서로 정렬 되는 이슈 -> priority 를 a, b, c 로 정렬 하기 쉽도록 변경
+    @Transactional(readOnly = true)
     public Page<Todo> findAllByUserId(String userId, int page, int size, String sortType) {
         Sort sort = SortUtil.getSort(sortType);
         Pageable pageable = PageRequest.of(page, size, sort);
+
         // 캐싱되지 않고 새로 불러올 수 있도록 추가
         entityManager.clear();
 
-        return todoRepository.findAllByUserId(userId, pageable);
+        // 필터링 조건 추가
+        return switch (sortType.toUpperCase()) {
+            case "HIGH" -> todoRepository.findByUserIdAndPriority(userId, "A", pageable);
+            case "MEDIUM" -> todoRepository.findByUserIdAndPriority(userId, "B", pageable);
+            case "LOW" -> todoRepository.findByUserIdAndPriority(userId, "C", pageable);
+            case "RUNNING" -> todoRepository.findByUserIdAndComplete(userId, 0, pageable); // 미완료 항목만
+            case "COMPLETE" -> todoRepository.findByUserIdAndComplete(userId, 1, pageable); // 완료 항목만
+            default -> todoRepository.findAllByUserId(userId, pageable);
+        };
     }
 
     // todo 추가
