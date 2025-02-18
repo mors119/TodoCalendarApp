@@ -23,6 +23,7 @@ git clone https://github.com/사용자명/저장소명.git
 cd 저장소명
 npm install  # 또는 yarn install
 npm start
+```
 
 ## **프론트엔드**
 
