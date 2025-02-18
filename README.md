@@ -57,6 +57,7 @@ npm start
 ```
 
 - `localhost:5173`에서 앱을 확인할 수 있습니다.
+- `.env.local` 파일을 생성하고 Clerk key를 넣어야 합니다.
 
 ### **✅ 백엔드 실행 (Spring Boot API 서버)**
 
