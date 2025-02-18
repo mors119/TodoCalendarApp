@@ -10,9 +10,9 @@
 이 프로젝트는 **React & Spring Boot**를 사용한 Todo 앱입니다.
 
 ## 사용 기술
-![download](https://github.com/user-attachments/assets/5ae7c663-b750-4a7d-8596-a3b934c6e9d2)
-![download-3](https://github.com/user-attachments/assets/20305dbb-2f2f-419e-b4ad-1a96663fc77e)
-![download-2](https://github.com/user-attachments/assets/0ab7f5cc-f5f0-4d0d-b560-9cd9db8271be)
+![download](https://github.com/user-attachments/assets/791ad434-b6b5-402d-8874-209481dfbfce)
+![download-1](https://github.com/user-attachments/assets/4c0634b3-2e6b-42ff-85e0-60ae0fdd175a)
+![download-2](https://github.com/user-attachments/assets/f3acf96b-c71f-4030-bd0a-643eef3b4a03)
 - Frontend: React.js, Ant Design, zustand, typeScript
 - Backend: Spring Boot, JPA, MySQL
 - API 명세: Swagger
