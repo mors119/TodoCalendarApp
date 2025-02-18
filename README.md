@@ -1,4 +1,4 @@
-# **TodoCalendarApp**
+# **TodoCalendarApp** 🚀 (Frontend + Backend Full-Stack 프로젝트)
 
 ![React](https://img.shields.io/badge/React-19.0-blue?logo=react)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-green?logo=springboot)
@@ -10,6 +10,10 @@
 
 **TodoCalendarApp**은 **React + Spring Boot** 기반으로 **할 일 관리(TODO)와 일정(Calendar)를 결합한 웹 애플리케이션**입니다.  
 사용자는 간편한 인터페이스를 통해 **할 일을 추가, 수정, 삭제**하고, **일정과 연동하여 계획을 시각적으로 확인**할 수 있습니다.
+
+기존의 TODO 앱은 리스트 기반으로만 되어 있어, 사용자가 할 일을 **날짜별로 정리하는 기능이 부족**했습니다.
+이 프로젝트에서는 **캘린더와 연동하여, 직관적으로 할 일을 관리할 수 있도록 개발**하는 것이 목표였습니다.
+추가적으로, 할 일의 **완료 비율을 시각화**하여, 사용자가 스스로의 생산성을 분석할 수 있도록 차트 기능을 추가했습니다.
 
 ### **🌟 핵심 목표**
 
@@ -163,6 +167,14 @@ React JS 기반의 클라이언트 화면으로, **할 일 관리(TODO) 및 일�
 - **할 일 관리 (CRUD)** – 할 일을 추가, 수정, 삭제 가능
 - **캘린더와 연동** – 특정 날짜에 할 일을 배정할 수 있음
 - **완료 체크 기능** – 할 일 완료 여부 확인
+
+### 🌟 추가 기능
+- ✅ **검색 기능** – 할 일 및 일정 내에서 키워드 검색 지원  
+- ✅ **하루 일정 다운로드** – 원하는 날짜의 TODO를 `.txt` 파일로 저장 가능  
+- ✅ **데이터 차트 분석** – TODO 완료 비율을 차트로 시각화  
+- ✅ **Drag & Drop 지원** – 마우스로 할 일 순서를 변경 가능  
+- ✅ **Clerk OAuth 로그인 연동** – Google 계정으로 로그인 가능  
+- ✅ **반응형 디자인** – 모바일 & 태블릿에서도 최적 UI 제공  
 ---
 
 ```sh
@@ -551,14 +563,13 @@ CREATE TABLE TODO (
 📌 **JUnit + Mockito 기반 테스트 케이스 작성**
 
 - `TodoServiceTest` – 할 일 관리 서비스 로직 테스트
-- `CalendarServiceTest` – 일정 관리 서비스 로직 테스트
-- `UserControllerTest` – 사용자 인증 테스트
 
 ```sh
 ./gradlew test
 ```
 
-✅ 실행하면 단위 테스트 및 API 테스트 자동 실행됨
+✅ 실행하면 단위 테스트 및 API 테스트 자동 실행됨 
+(Mock 버전 경고가 있지만 테스트에 영향은 없음)
 
 ---
 
