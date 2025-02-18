@@ -126,10 +126,6 @@ public class TodoController {
             @Parameter(description = "페이지 크기 (기본값: 3)", example = "5") @RequestParam(defaultValue = "5") int size
     ) {
         Page<Todo> todos = todoService.searchTodos(keyword, userId, page, size);
-        System.out.println("todos = " + todos);
-        if(todos.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
         return ResponseEntity.ok(todos);
     }
 

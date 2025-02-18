@@ -2,7 +2,6 @@ package com.example.backend.repository;
 
 import com.example.backend.entity.Todo;
 import com.example.backend.model.CalendarResponse;
-import com.example.backend.model.TodoRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

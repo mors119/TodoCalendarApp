@@ -30,12 +30,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-// 배포 시 필요 없는 것들
+	testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//	swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	//	mockito-inline
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-//	swagger
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	testImplementation 'org.mockito:mockito-core:5.2.0'
+	testImplementation 'org.mockito:mockito-inline:5.2.0'
+	testImplementation 'org.assertj:assertj-core:3.23.1'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
 }
 
 tasks.named('test') {

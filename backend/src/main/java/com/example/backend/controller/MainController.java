@@ -24,6 +24,6 @@ public class MainController {
             @Parameter(description = "사용자(clerk) ID", example = "user_1dsAFSasdawef234ewqrASF56") @RequestParam String userId
     ) throws IOException {
         mainService.executeSqlFile(userId);
-        return null;
+        return ResponseEntity.ok().build();
     }
 }
