@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@RequestMapping("/todos")
+@RequestMapping("/api/todos")
 @RestController
 @Tag(name = "Todo API", description = "할 일(Todo) 관리 API") // API 그룹 지정
 public class TodoController {

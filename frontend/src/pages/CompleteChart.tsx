@@ -63,8 +63,8 @@ export default function CompleteChart() {
     });
 
     // 데이터 변환
-    const formattedData = Object.entries(monthlyStats).map(
-      ([month, stats]) => ({
+    const formattedData = Object.entries(monthlyStats)
+      .map(([month, stats]) => ({
         month,
         total: stats.total,
         completed: stats.completed,
@@ -76,8 +76,8 @@ export default function CompleteChart() {
           stats.total > 0
             ? Math.round(100 - (stats.completed / stats.total) * 100)
             : 0,
-      }),
-    );
+      }))
+      .sort((b, a) => b.month.localeCompare(a.month)); // YYYY-MM 기준 내림차순 정렬
 
     setChartData(formattedData);
   };

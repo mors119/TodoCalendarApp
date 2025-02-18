@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/api/main")
 @Tag(name = "Main API", description = "기본 실행 API")
 public class MainController {
 

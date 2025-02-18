@@ -17,6 +17,7 @@ export default function Result() {
   const { currentPage, setTotalPages } = usePaginationStore();
   const [todos, setTodos] = useState<todoType[]>([]);
   const location = useLocation();
+  const [title, setTitle] = useState<string | null>('');
 
   const prevUrl: string = location.state?.from;
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Result() {
       }
     };
     getSearchResult();
+    setTitle(searchKeyword);
   }, [refreshState, member, currentPage]);
 
   const handleComplete = async (todo: todoType) => {
@@ -45,9 +47,7 @@ export default function Result() {
   return (
     <div>
       {prevUrl !== '/calendar' && (
-        <h2 className="text-xl font-bold mb-4">
-          🔍 검색 결과: "{searchKeyword}"
-        </h2>
+        <h2 className="text-xl font-bold mb-4">🔍 검색 결과: "{title}"</h2>
       )}
       <List
         grid={{ gutter: 16, column: 1 }}
