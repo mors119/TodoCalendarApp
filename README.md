@@ -66,6 +66,7 @@ java -jar backend-0.0.1-SNAPSHOT.jar
 java -jar -Dserver.port=9090 backend-0.0.1-SNAPSHOT.jar
 ```
 ✅ 실행 후 `http://localhost:9090`로 접속하면 API를 사용할 수 있습니다.
+✅ 9090으로 접속 시 데이터 베이스에 연결할 수 없습니다.
 
 ###### 🚨 **포트 충돌 시 문제 해결 (Port 8080 is already in use)**  
 ```sh
@@ -565,13 +566,7 @@ CREATE TABLE TODO (
 
 📌 **JUnit + Mockito 기반 테스트 케이스 작성**
 
-- `TodoServiceTest` – 할 일 관리 서비스 로직 테스트
-
-```sh
-./gradlew test
-```
-
-✅ 실행하면 단위 테스트 및 API 테스트 자동 실행됨 
+- `TodoServiceTest` – 할 일 관리 서비스 로직 테스트 ✅
 (Mock 버전 경고가 있지만 테스트에 영향은 없음)
 
 ---
