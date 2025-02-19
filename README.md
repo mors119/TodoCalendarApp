@@ -68,6 +68,7 @@ java -jar -Dserver.port=9090 backend-0.0.1-SNAPSHOT.jar
 ✅ 실행 후 `http://localhost:9090`로 접속하면 API를 사용할 수 있습니다. <br>
 ✅ 9090으로 접속 시 데이터 베이스에 연결할 수 없습니다.
 
+
 ###### 🚨 **포트 충돌 시 문제 해결 (Port 8080 is already in use)**  
 ```sh
 sudo netstat -tulnp | grep 8080
