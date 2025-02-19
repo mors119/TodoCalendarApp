@@ -26,14 +26,14 @@ public class MainControllerTest {
 
     @BeforeEach
     void setup() throws Exception {
-        Mockito.doNothing().when(mainService).executeSqlFile(anyString()); // ✅ Mock 설정
+        Mockito.doNothing().when(mainService).executeSqlFile(anyString()); // Mock 설정
     }
 
     @Test
     void testExecuteSqlFile() throws Exception {
         mockMvc.perform(get("/main/execute")
-                        .param("userId", "user_1dsAFSasdawef234ewqrASF56") // ✅ 요청 파라미터 추가
+                        .param("userId", "user_1dsAFSasdawef234ewqrASF56")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()); // ✅ HTTP 200 응답 확인
+                .andExpect(status().isOk()); // HTTP 200 응답 확인
     }
 }
