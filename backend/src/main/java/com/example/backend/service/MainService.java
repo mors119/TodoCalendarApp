@@ -1,31 +1,48 @@
 package com.example.backend.service;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.Statement;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
-
 
 @Service
 public class MainService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    private DataSource dataSource;
 
-    // 최초 더미 데이터 넣기
-    @Transactional
-    public void executeSqlFile(String userId) throws IOException {
-        String sql = Files.lines(Paths.get("src/main/resources/sql/insert.sql"))
-                .collect(Collectors.joining(" "));
+    public void executeSqlFile(String userId) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sql/insert.sql");
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+             Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
 
-        sql = sql.replace(":userId", String.valueOf(userId));
+            StringBuilder sqlBuilder = new StringBuilder();
+            String line;
 
-        entityManager.createNativeQuery(sql).executeUpdate();
+            while ((line = reader.readLine()) != null) {
+                sqlBuilder.append(line).append("\n");
+            }
+
+            // :userId를 실제 userId 값으로 치환
+            String sql = sqlBuilder.toString().replace(":userId", userId);
+
+            // SQL 실행
+            for (String query : sql.split(";")) {
+                if (!query.trim().isEmpty()) {
+                    statement.execute(query.trim());
+                }
+            }
+
+            System.out.println("SQL 실행 완료!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }
