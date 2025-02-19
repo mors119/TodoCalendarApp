@@ -47,29 +47,31 @@
 
 ## **💽 설치 방법**
 
-### **✅ 프론트엔드 실행**
+### 1️⃣ **JAR 파일 다운로드**
+먼저, `backend-0.0.1-SNAPSHOT.jar` 파일을 다운로드합니다.
+
+### 2️⃣ **JAR 파일 실행**
+다운로드한 JAR 파일이 있는 폴더에서 다음 명령어를 실행합니다.
 
 ```sh
-git clone https://github.com/mors119/TodoCalendarApp.git
-cd TodoCalendarApp/frontend
-npm install  # 또는 yarn install
-npm start
+java -jar backend-0.0.1-SNAPSHOT.jar
 ```
+### 3️⃣ **서버 접속**
+웹 브라우저 또는 API 테스트 툴(Postman, curl 등)을 사용하여 `localhost:8080`으로 접속합니다.
 
-- `localhost:5173`에서 앱을 확인할 수 있습니다.
-- `.env.local` 파일을 생성하고 Clerk key를 넣어야 합니다.
-
-### **✅ 백엔드 실행 (Spring Boot API 서버)**
+### ⚙️ **포트 변경 방법**
+기본적으로 `8080` 포트에서 실행되지만, 필요하면 포트를 변경할 수 있습니다.
 
 ```sh
-cd backend
-./gradlew build
-java -jar build/libs/backend-0.0.1-SNAPSHOT.jar
+java -jar -Dserver.port=9090 backend-0.0.1-SNAPSHOT.jar
 ```
+✅ 실행 후 `http://localhost:9090`로 접속하면 API를 사용할 수 있습니다.
 
-- `localhost:8080`에서 API 서버가 실행됩니다.
-- Swagger를 통해 API 문서를 확인할 수 있습니다. (`http://localhost:8080/swagger-ui.html`)
-
+###### 🚨 **포트 충돌 시 문제 해결 (Port 8080 is already in use)**  
+```sh
+sudo netstat -tulnp | grep 8080
+sudo kill -9 <PID>
+```
 ---
 
 ## 📌 프로젝트 사용 가이드 및 미리보기
