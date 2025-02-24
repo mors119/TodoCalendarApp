@@ -50,13 +50,37 @@
 ### 1️⃣ **JAR 파일 다운로드**
 먼저, 프로젝트 루트에 있는 `backend-0.0.1-SNAPSHOT.jar` 파일을 다운로드합니다.
 
-### 2️⃣ **JAR 파일 실행**
+### 2️⃣ 서버 설정
+(현재는 DB 서버를 종료했습니다.)
+MySQL 설치 후 아래 코드를 입력하여 서버를 설정해주세요.
+```sh
+# MySQL 접속 (비밀번호 입력)
+sudo mysql -u root -p
+
+-- 1️⃣ `todocalendar` 데이터베이스 생성
+CREATE DATABASE todocalendar;
+
+-- 2️⃣ `todo` 사용자 생성 (비밀번호 `1234`)
+CREATE USER 'todo'@'%' IDENTIFIED BY '1234';
+
+-- 3️⃣ `todo` 사용자에게 `todocalendar` DB에 대한 모든 권한 부여
+GRANT ALL PRIVILEGES ON todocalendar.* TO 'todo'@'%';
+
+-- 4️⃣ 변경 사항 적용
+FLUSH PRIVILEGES;
+
+-- 5️⃣ 사용자 확인
+SELECT User, Host FROM mysql.user;
+```
+
+### 3️⃣ **JAR 파일 실행**
 다운로드한 JAR 파일이 있는 폴더에서 다음 명령어를 실행합니다.
 
 ```sh
 java -jar backend-0.0.1-SNAPSHOT.jar
 ```
-### 3️⃣ **서버 접속**
+
+### 4️⃣ **서버 접속**
 웹 브라우저 또는 API 테스트 툴(Postman, curl 등)을 사용하여 `localhost:8080`으로 접속합니다.
 
 ### ⚙️ **포트 변경 방법**
